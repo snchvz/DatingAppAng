@@ -5,6 +5,5 @@ namespace DatingApp.API.Models
         //.net will infer that int id is the key by convention
         public int id { get; set; }
         public string Name { get; set; }
-
     }
 }
