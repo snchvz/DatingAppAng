@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DatingApp.API.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,7 @@ namespace DatingApp.API.Controllers
     //We will not be using Views in MVC
     //the views will be provided by Angular
 
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase  //ControllerBase -> NO view support
@@ -22,6 +24,7 @@ namespace DatingApp.API.Controllers
             _db = db;    
         }
 
+        [AllowAnonymous]
         // GET api/values
         [HttpGet]
         public async Task<IActionResult> Get()  //allows us to return HTTP responses to the client

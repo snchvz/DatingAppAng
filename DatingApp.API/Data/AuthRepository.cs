@@ -15,20 +15,17 @@ namespace DatingApp.API.Data
         }
         public async Task<User> Login(string username, string password)
         {
-            return await _db
-                .Users
-                .FirstOrDefaultAsync(t => t.Username == username && VerifyPasswordHash(password, t.PasswordHash, t.PasswordSalt));        
+            var user = await _db.Users.FirstOrDefaultAsync(t => t.Username == username);
+            if(user == null)
+            {
+                return null;
+            }
 
-            // var user = await _db.Users.FirstOrDefaultAsync(t => t.Username == username);
-            // if(user == null)
-            // {
-            //     return null;
-            // }
-
-            // if(!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
-            // {
-            //     return null;
-            // }
+            if(!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            {
+                return null;
+            }
+            return user;
         }
 
         private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
