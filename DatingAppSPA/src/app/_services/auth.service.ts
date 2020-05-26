@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {map} from 'rxjs/operators';
+import {JwtHelperService} from '@auth0/angular-jwt';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 @Injectable({ //inject things into our service
   providedIn: 'root'
@@ -9,6 +11,8 @@ export class AuthService {
   //we want the HttpClient from Angular/common/http
   constructor(private http: HttpClient) { }
   baseUrl = 'http://localhost:5000/api/auth/';
+  jwtHelper = new JwtHelperService();
+  decodedToken: any;
 
   login(model: any)
   {
@@ -19,7 +23,9 @@ export class AuthService {
         map((response: any) => {
           const user = response;
           if(user){
-            localStorage.setItem('token', user.token);
+            localStorage.setItem('token', user.token);  //set token in local storage
+            this.decodedToken = this.jwtHelper.decodeToken(user.token);
+            console.log(this.decodedToken);
           }
         })
       )
@@ -27,6 +33,11 @@ export class AuthService {
 
   register(model: any){
     return this.http.post(this.baseUrl + 'register', model);
+  }
+
+  loggedIn(){
+    const token = localStorage.getItem('token');
+    return !this.jwtHelper.isTokenExpired(token); //return true if token is NOT expired (or its a valid token)
   }
 
 }
