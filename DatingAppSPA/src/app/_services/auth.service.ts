@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ //inject things into our service
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { connectableObservableDescriptor } from 'rxjs/internal/observable/Connec
 export class AuthService {
   //we want the HttpClient from Angular/common/http
   constructor(private http: HttpClient) { }
-  baseUrl = 'http://localhost:5000/api/auth/';
+  baseUrl = environment.apiUrl + 'auth/';
   jwtHelper = new JwtHelperService();
   decodedToken: any;
 
