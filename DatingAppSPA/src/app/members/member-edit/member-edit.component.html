@@ -67,7 +67,7 @@ since the data has to be passed first before loading -->
            
             </tab>
             <tab heading="Edit Photos">
-                <p>upload photos!</p>
+                <app-photo-editor [photos]="user.photos" (getMemberPhotoChange)="updateMainPhoto($event)"></app-photo-editor>
             </tab>
           </tabset>
         </div>

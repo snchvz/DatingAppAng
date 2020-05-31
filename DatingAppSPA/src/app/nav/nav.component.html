@@ -20,6 +20,9 @@
   
     <!-- if user is not logged in, do not display this div -->
     <div *ngIf="loggedIn()" class="dropdown" dropdown>
+      <span class="mr-1">
+        <img src="{{authService.currentUser.photoUrl}}">
+      </span>
       <a class="dropdown-toggle text-light" dropdownToggle>
         <!-- titlecase -> make string titlecase -->
         Welcome {{authService.decodedToken?.unique_name | titlecase}}
