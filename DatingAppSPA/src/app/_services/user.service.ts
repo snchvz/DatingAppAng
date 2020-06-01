@@ -29,4 +29,9 @@ constructor(private http: HttpClient) { }
   setMainPhoto(userId: number, id: number){
     return this.http.post(this.baseUrl + "users/" + userId + "/photos/" + id + "/setMain", {}); //need to send an empty body {} since it's a post request
   }
+
+  deletePhoto(userId: number, id: number)
+  {
+    return this.http.delete(this.baseUrl + 'users/' + userId + '/photos/' + id);
+  }
 }
