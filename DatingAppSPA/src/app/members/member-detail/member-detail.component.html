@@ -35,14 +35,15 @@ since the data has to be passed first before loading -->
       <div class="card-footer">
         <div class="btn-group d-flex">
           <button class="btn btn-primary w-100">Like</button>
-          <button class="btn btn-success w-100">Message</button>
+          <!-- tabs have ids like an index in array - tab about = 0, tab photos = 1, tab messages = 2 -->
+          <button class="btn btn-success w-100" (click)="selectTab(2)">Message</button>
         </div>
       </div>
     </div>
 
     <div class="col-sm-8">
       <div class="tab-panel">
-        <tabset class="member-tabset">
+        <tabset class="member-tabset" #memberTabs>
           <tab heading="About {{user?.knownAs}}">
             <h4>Description</h4>
             <p>{{user.introduction}}</p>
@@ -55,7 +56,7 @@ since the data has to be passed first before loading -->
           </tab>
 
           <tab heading="Messages">
-            <p>Messages go here</p>
+            <app-member-messages [recipientId]="user.id"></app-member-messages>
           </tab>
         </tabset>
       </div>
